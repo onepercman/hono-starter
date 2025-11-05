@@ -1,10 +1,12 @@
-# Hono Starter Project Conventions
+# Hono Starter Project Conventions (Bun Native)
 
 ## Project Structure
 
 ```
 src/
-├── index.ts                    # Main application entry point
+├── index.ts                    # Main application entry point (Bun.serve)
+├── lib/                        # Barrel exports for common imports
+│   └── index.ts               # Re-exports Hono, Zod, utils, types
 ├── config/                     # Configuration files
 │   └── index.ts               # App configuration (database, env vars, etc.)
 ├── middleware/                 # Custom middleware functions
@@ -38,46 +40,49 @@ src/
 - Types: Module-specific TypeScript interfaces
 
 ### 2. Path Aliases
-Use TypeScript path aliases for clean imports:
-- `@/*` - src directory
-- `@/modules/*` - feature modules
-- `@/routes/*` - global routes
-- `@/middleware/*` - middleware functions
-- `@/services/*` - shared services
-- `@/utils/*` - utility functions
-- `@/types/*` - type definitions
-- `@/config/*` - configuration files
+Use Bun-friendly TypeScript path aliases:
+- `~/*` - src directory (wildcard pattern covers all subdirectories)
+- `~/lib` - Common imports barrel (Hono, Zod, utils, types)
+- Import without index: `import { foo } from "~/routes"`
 
-### 3. API Development
+### 3. Import Strategy
+- **Short imports** for common modules: `import { Hono, z } from "~/lib"`
+- **Absolute imports** for specific modules: `import { UserRoutes } from "~/modules/user/user.routes"`
+- No `.js` extensions needed (Bun supports TypeScript natively)
+- Use barrel exports (`src/lib/index.ts`) for frequently imported dependencies
+
+### 4. API Development
 - Use `@hono/zod-openapi` for route definitions
 - Always include OpenAPI schemas for request/response validation
 - Return structured responses using the `ResponseUtil` helper
 - Each route should have proper error handling
+- Server initialization with `Bun.serve()`
 
-### 4. Response Format
+### 5. Response Format
 Use `ResponseUtil` for consistent API responses:
 - `ResponseUtil.success(data, message)` - Success responses
 - `ResponseUtil.error(message, error)` - Error responses  
 - `ResponseUtil.paginated(data, page, limit, total)` - Paginated responses
 
-### 5. Configuration
-- Store configuration in `@/config/index.ts`
+### 6. Configuration
+- Store configuration in `~/config`
 - Use environment variables for sensitive data
 - Provide sensible defaults for development
 
-### 6. Type Safety
-- Define all interfaces in `@/types/index.ts` or module-specific types files
+### 7. Type Safety
+- Define all interfaces in `~/types` or module-specific types files
 - Use Zod schemas for runtime validation
-- Enable strict TypeScript mode
+- Enable strict TypeScript mode with Bun-specific settings
 
 ## Development Guidelines
 
-1. **Feature First**: Create modules based on features, not technical layers
-2. **Single Responsibility**: Each file should have a single, clear purpose
-3. **Documentation**: Use OpenAPI schemas for automatic API documentation
-4. **Validation**: Always validate input using Zod schemas
-5. **Error Handling**: Implement consistent error handling across all modules
-6. **Testing**: Follow module structure for test organization (not implemented yet)
+1. **Bun Native**: Leveraging Bun's performance and TypeScript support
+2. **Feature First**: Create modules based on features, not technical layers
+3. **Single Responsibility**: Each file should have a single, clear purpose
+4. **Documentation**: Use OpenAPI schemas for automatic API documentation
+5. **Validation**: Always validate input using Zod schemas
+6. **Error Handling**: Implement consistent error handling across all modules
+7. **Performance**: Utilize Bun's built-in bundler and runtime
 
 ## API Documentation
 
@@ -104,6 +109,15 @@ Required environment variables:
 
 ## Build and Run
 
-- Development: `pnpm run dev`
-- Build: `pnpm run build`
-- Start: `pnpm run start`
+- Development: `bun run dev` (hot reload with --watch)
+- Build: `bun build src/index.ts --outdir dist --target node`
+- Start: `bun dist/index.js`
+- Install: `bun install`
+
+## Bun Specific Features
+
+- **Fast builds**: TypeScript compilation in ~9ms
+- **Native imports**: No transpilation needed during development
+- **Built-in server**: `Bun.serve()` instead of Node.js server
+- **Lock file**: `bun.lockb` for deterministic dependency resolution
+- **TypeScript path resolution**: Native support for aliases

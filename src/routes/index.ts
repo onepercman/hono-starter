@@ -1,6 +1,5 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
-import { swaggerUI } from '@hono/swagger-ui';
-import { UserRoutes } from '../modules/user/user.routes.js';
+import { OpenAPIHono, swaggerUI } from '~/lib';
+import { UserRoutes } from '~/modules/user/user.routes';
 
 const app = new OpenAPIHono();
 

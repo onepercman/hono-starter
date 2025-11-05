@@ -1,5 +1,4 @@
-import { OpenAPIHono, createRoute } from '@hono/zod-openapi';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '~/lib';
 
 const UserRoutes = new OpenAPIHono();
 

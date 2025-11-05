@@ -1,4 +1,4 @@
-import type { ApiResponse, PaginatedResponse } from '../types/index.js';
+import type { ApiResponse, PaginatedResponse } from '~/lib';
 
 export class ResponseUtil {
   static success<T>(data: T, message?: string): ApiResponse<T> {
