@@ -1,6 +1,6 @@
-import { OpenAPIHono, createRoute, z } from '~/lib';
+import { OpenAPIHono, createRoute, z } from '~/lib'
 
-const UserRoutes = new OpenAPIHono();
+const UserRoutes = new OpenAPIHono()
 
 const GetUsersRoute = createRoute({
   method: 'get',
@@ -11,18 +11,20 @@ const GetUsersRoute = createRoute({
         'application/json': {
           schema: z.object({
             success: z.boolean(),
-            data: z.array(z.object({
-              id: z.string(),
-              email: z.string(),
-              name: z.string().optional(),
-            })),
-          }),
-        },
+            data: z.array(
+              z.object({
+                id: z.string(),
+                email: z.string(),
+                name: z.string().optional()
+              })
+            )
+          })
+        }
       },
-      description: 'Get all users',
-    },
-  },
-});
+      description: 'Get all users'
+    }
+  }
+})
 
 UserRoutes.openapi(GetUsersRoute, (c) => {
   return c.json({
@@ -31,15 +33,15 @@ UserRoutes.openapi(GetUsersRoute, (c) => {
       {
         id: '1',
         email: 'user1@example.com',
-        name: 'User One',
+        name: 'User One'
       },
       {
         id: '2',
         email: 'user2@example.com',
-        name: 'User Two',
-      },
-    ],
-  });
-});
+        name: 'User Two'
+      }
+    ]
+  })
+})
 
-export { UserRoutes };
+export { UserRoutes }

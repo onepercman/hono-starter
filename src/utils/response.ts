@@ -1,4 +1,4 @@
-import type { ApiResponse, PaginatedResponse } from '~/lib';
+import type { ApiResponse, PaginatedResponse } from "~/lib"
 
 export class ResponseUtil {
   static success<T>(data: T, message?: string): ApiResponse<T> {
@@ -6,7 +6,7 @@ export class ResponseUtil {
       success: true,
       data,
       message,
-    };
+    }
   }
 
   static error(message: string, error?: string): ApiResponse {
@@ -14,7 +14,7 @@ export class ResponseUtil {
       success: false,
       message,
       error,
-    };
+    }
   }
 
   static paginated<T>(
@@ -22,10 +22,10 @@ export class ResponseUtil {
     page: number,
     limit: number,
     total: number,
-    message?: string
+    message?: string,
   ): PaginatedResponse<T> {
-    const totalPages = Math.ceil(total / limit);
-    
+    const totalPages = Math.ceil(total / limit)
+
     return {
       success: true,
       data,
@@ -36,6 +36,6 @@ export class ResponseUtil {
         total,
         totalPages,
       },
-    };
+    }
   }
 }
