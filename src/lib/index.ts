@@ -1,5 +1,4 @@
 // Re-export commonly used modules with shorter names
-export { swaggerUI } from "@hono/swagger-ui"
 export { OpenAPIHono, createRoute } from "@hono/zod-openapi"
 export { z } from "zod"
 

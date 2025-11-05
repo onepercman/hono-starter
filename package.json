@@ -24,7 +24,7 @@
     "bun",
     "typescript",
     "openapi",
-    "swagger"
+    "scalar"
   ],
   "author": "",
   "license": "MIT",
@@ -32,8 +32,8 @@
     "bun": ">=1.0.0"
   },
   "dependencies": {
-    "@hono/swagger-ui": "^0.5.2",
     "@hono/zod-openapi": "^1.1.4",
+    "@scalar/hono-api-reference": "^0.9.23",
     "hono": "^4.10.4",
     "zod": "^4.1.12"
   },
