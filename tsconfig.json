@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "NodeNext",
+    "module": "Node16",
     "strict": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
@@ -10,7 +10,18 @@
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/routes/*": ["src/routes/*"],
+      "@/modules/*": ["src/modules/*"],
+      "@/middleware/*": ["src/middleware/*"],
+      "@/services/*": ["src/services/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/types/*": ["src/types/*"],
+      "@/config/*": ["src/config/*"]
+    }
   },
   "exclude": ["node_modules"]
 }
