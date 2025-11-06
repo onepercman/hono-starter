@@ -1,0 +1,3 @@
+bun run --silent lint:check
+bun run --silent format:check
+bun run --silent type-check
